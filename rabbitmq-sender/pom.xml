@@ -11,5 +11,16 @@
 
     <artifactId>rabbitmq-sender</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>5.5.0</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
 
+        </plugins>
+    </build>
 </project>

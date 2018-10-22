@@ -2,3 +2,7 @@
 \.idea/
 
 *.iml
+
+rabbitmq-worker/target/
+
+rabbitmq-sender/target/
