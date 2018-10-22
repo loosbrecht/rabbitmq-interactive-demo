@@ -1,0 +1,1 @@
+rabbitmq-interactive-demo
