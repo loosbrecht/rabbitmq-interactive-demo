@@ -14,22 +14,29 @@ public abstract class Worker {
     protected String queueName;
     protected String host;
     protected Connection connection;
+    protected String binding;
 
-    public Worker(String host, String queueName) {
+    public static String EXCHANGE = "lotofmessages";
+
+    public Worker(String host, String queueName, String binding) {
         this.queueName = queueName;
         this.host = host;
         this.channel = null;
         this.connection = null;
+        this.binding = binding;
 
     }
 
-    public void init() throws IOException, TimeoutException {
+    public void init(String username, String password) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
-         connection = factory.newConnection();
-        Channel channel = connection.createChannel();
-
+        factory.setUsername(username);
+        factory.setPassword(password);
+        connection = factory.newConnection();
+        channel = connection.createChannel();
+        channel.exchangeDeclare(EXCHANGE, "direct");
         channel.queueDeclare(queueName, false, false, false, null);
+        channel.queueBind(queueName, EXCHANGE, binding);
         System.out.println("Start listening on queue: [" + queueName + "]");
     }
 

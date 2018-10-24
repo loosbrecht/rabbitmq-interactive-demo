@@ -13,25 +13,27 @@ public abstract class Sender<T> {
     protected String host;
     protected Connection connection;
 
-    public Sender(String host, String queueName) {
-        this.queueName = queueName;
+    public static String EXCHANGE = "lotofmessages";
+
+    public Sender(String host) {
         this.host = host;
         this.channel = null;
         this.connection = null;
 
     }
 
-    public void init() throws IOException, TimeoutException {
+    public void init(String username, String password) throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);
+        factory.setUsername(username);
+        factory.setPassword(password);
         connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+         channel = connection.createChannel();
 
-        channel.queueDeclare(queueName, false, false, false, null);
-        System.out.println("Start listening on queue: [" + queueName + "]");
+        channel.exchangeDeclare(EXCHANGE,"direct");
     }
 
-    public abstract void sendMessage(T msg) throws IOException;
+    public abstract void sendMessage(String arg, String msg) throws IOException;
 
     public abstract byte[] convertToBytes(T msg);
 

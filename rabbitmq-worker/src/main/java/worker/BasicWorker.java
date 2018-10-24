@@ -9,16 +9,11 @@ import java.util.concurrent.TimeoutException;
 public class BasicWorker extends Worker {
 
 
-    public BasicWorker(String host, String queueName) {
-        super(host, queueName);
+    public BasicWorker(String host, String queueName, String binding) {
+        super(host, queueName,binding);
     }
 
-    @Override
-    public void init() throws IOException, TimeoutException {
-        super.init();
-        //give only one message at the time to a queue
-        super.channel.basicQos(1);
-    }
+
 
     public void startReceiving(final Processor processor) throws IOException {
 
