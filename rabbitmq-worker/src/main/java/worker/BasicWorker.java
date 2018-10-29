@@ -9,13 +9,13 @@ import java.util.concurrent.TimeoutException;
 public class BasicWorker extends Worker {
 
 
-    public BasicWorker(String host, String queueName, String binding) {
-        super(host, queueName,binding);
+    public BasicWorker(String host, String username, String password) throws IOException, TimeoutException {
+        super(host, username,password);
     }
 
 
 
-    public void startReceiving(final Processor processor) throws IOException {
+    public void startReceiving(String queueName, final Processor processor) throws IOException {
 
         Consumer consumer = new DefaultConsumer(super.channel) {
             @Override

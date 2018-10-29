@@ -19,7 +19,8 @@ public class Main {
         }else{
             return;
         }
-        StringSender ss = new StringSender("localhost");
+        String host = "192.168.0.142";
+        StringSender ss = new StringSender(host);
         ss.init("dmadmin","Installer1");
        ss.sendMessage(msg,binding);
 
