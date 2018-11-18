@@ -24,10 +24,6 @@ public abstract class Worker {
         factory.setPassword(password);
         connection = factory.newConnection();
         channel = connection.createChannel();
-        channel.exchangeDeclare(EXCHANGE,"direct",false);
-        channel.queueDeclare(queueName, false, false, false, null);
-        channel.queueBind(queueName, EXCHANGE, binding);
-        System.out.println("Start listening on queue: [" + queueName + "]");
     }
 
     public void init(String exchange, String queueName, String bindingPhrase, String bindingType) throws IOException {
@@ -36,7 +32,7 @@ public abstract class Worker {
         channel.queueBind(queueName, exchange, bindingPhrase);
     }
     public void init(String queueName) throws IOException {
-        channel.queueDeclare(queueName,true,false,false,null);
+        channel.queueDeclare(queueName,false,false,false,null);
     }
 
     public abstract void startReceiving(String queueName, final Processor processor) throws IOException;
