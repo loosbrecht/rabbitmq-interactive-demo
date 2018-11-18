@@ -34,7 +34,7 @@ public abstract class Worker {
         factory.setPassword(password);
         connection = factory.newConnection();
         channel = connection.createChannel();
-        channel.exchangeDeclare(EXCHANGE, "direct");
+        channel.exchangeDeclare(EXCHANGE,"direct",false);
         channel.queueDeclare(queueName, false, false, false, null);
         channel.queueBind(queueName, EXCHANGE, binding);
         System.out.println("Start listening on queue: [" + queueName + "]");
